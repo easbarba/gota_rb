@@ -10,10 +10,12 @@ module Gota
   class Dots
     attr_reader :root, :ignore_these, :utils, :home, :target_link
 
-    def initialize(utils, root)
-      @utils = utils
+    HOME = Pathname.new Dir.home
+
+    def initialize(services, root)
+      @utils = services.resolve :utils
+
       @root = Pathname.new root if root
-      @home = Pathname.new Dir.home
       @target_link = {}
     end
 
@@ -37,7 +39,7 @@ module Gota
     # /a/b/c.tar --> /home/b/c.tar
     def to_home(this)
       origin = this.to_path
-      homey = home.to_path.concat('/')
+      homey = HOME.to_path.concat('/')
       result = origin.gsub(root.to_path, homey)
       Pathname.new result
     end
