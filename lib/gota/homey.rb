@@ -3,7 +3,7 @@
 # frozen_string_literal: true
 
 module Gota
-  # Mirror user DATA partition folders to $HOME
+  # Symlink partition folders to $HOME
   class Homey
     IGNORE_THESE = %w[.Trash-1000 lost+found].freeze
 
@@ -15,8 +15,7 @@ module Gota
 
     # Confirms if root is a folder or return w/ exeception
     def root_exist?
-      r = Pathname.new root
-      r.exist?
+      Pathname.new root.exist?
     end
 
     def folders_found
@@ -32,7 +31,7 @@ module Gota
       folders_found
     end
 
-    # Remove $HOME folders found in DATA
+    # Remove $HOME folders found in partition
     def cleanup_home
       target_link.each_key do |link_name|
         link_name.delete if link_name.exist?
