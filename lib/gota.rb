@@ -1,8 +1,20 @@
 # frozen_string_literal: true
 
-require_relative "gota/version"
+require_relative 'gota/version'
 
-module Gota
-  class Error < StandardError; end
-  # Your code goes here...
-end
+# * Main
+require_relative 'gota/brightness'
+require_relative 'gota/dots'
+require_relative 'gota/homey'
+require_relative 'gota/screenshot'
+
+# * Volume
+require_relative 'gota/volume/main'
+require_relative 'gota/volume/sound_manager'
+require_relative 'gota/volume/managers/pactl'
+require_relative 'gota/volume/managers/mixer'
+require_relative 'gota/volume/managers/amixer'
+
+# * Services
+require_relative 'gota/services/utils'
+require_relative 'gota/services/folders'
