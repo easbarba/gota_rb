@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/gota'
+
+require 'gli'
+require 'dry-container'
+
+# and then, there was fire.
+class App
+  extend GLI::App
+
+  program_desc 'Manage GOTA Projects repositories.'
+
+  version Gota::VERSION
+
+  # subcommand_option_handling :normal
+  arguments :normal
+
+  # desc 'Describe some switch here'
+  # switch %i[s switch]
+
+  # desc 'Describe some flag here'
+  # default_value 'the default'
+  # arg_name 'The name of the argument'
+  # flag %i[f flagname]
+
+  def self.services
+    container = Dry::Container.new
+    container.register :folders, Gota::Services::Folders.new
+    container.register :utils, Gota::Services::Utils.new
+  end
+
+  desc 'Manage System Volume'
+  command :volume do |c|
+    c.action do |_, _, args|
+      Gota::Volume::Main.new(args.first).run
+    end
+  end
+
+  desc 'Manage System brightness'
+  command :bright do |c|
+    c.action do |_, _, args|
+      Gota::Brightness.new(args.first).run
+    end
+  end
+
+  desc 'Mirror Dotfiles root folder in $HOME'
+  command :dots do |c|
+    c.action do |_, _, args|
+      Gota::Dots.new(services, args.first).run
+    end
+  end
+
+  desc 'Symlink partition folders to $HOME'
+  command :homey do |c|
+    c.action do |_, _, args|
+      Gota::Homey.new(services, :grab).run
+    end
+  end
+
+  # pre do |global, command, options, args|
+  #   # Pre logic here
+  #   # Return true to proceed; false to abort and not call the
+  #   # chosen command
+  #   # Use skips_pre before a command to skip this block
+  #   # on that command only
+  #   true
+  # end
+
+  # post do |global, command, options, args|
+  #   # Post logic here
+  #   # Use skips_post before a command to skip this
+  #   # block on that command only
+  # end
+
+  # on_error do |exception|
+  #   # Error logic here
+  #   # return false to skip default error handling
+  #   true
+  # end
+end
+
+exit App.run(ARGV)
