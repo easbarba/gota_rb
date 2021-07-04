@@ -1,0 +1,21 @@
+# ruby
+
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+examples.log
+/tmp/
+sorbet
+Gemfile.lock
+vendor
+
+# rspec failure tracking
+.rspec_status
+
+# direnv
+.direnv
+.gems
