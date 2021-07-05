@@ -19,7 +19,7 @@ module Gota
         spinner.success
       end
 
-      # Load file with famous serialization formats
+      # Load file with serialization formats
       def load_this(file, ext)
         case ext # TODO: load lazily per time. enumerator?
         when 'yaml'
