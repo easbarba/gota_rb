@@ -44,7 +44,7 @@ module Gota
       end
 
       def final_command
-        p "#{manager.name} #{mode[state]}"
+        "#{manager.name} #{mode[state]}"
       end
 
       def run
