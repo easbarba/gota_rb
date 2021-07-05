@@ -34,7 +34,7 @@ class App
   desc 'Manage System Volume'
   command :volume do |c|
     c.action do |_, _, args|
-      Gota::Volume::Main.new(args.first).run
+      Gota::Volume::Main.new(services, args.first).run
     end
   end
 
