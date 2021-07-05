@@ -11,7 +11,9 @@ module Gota
     end
 
     def sink
-      `pactl list sinks`.split('Sink #')[1][0]
+      `pactl list sinks`.split('Sink #').find do |sink|
+        sink if sink.include? 'State: RUNNING'
+      end[0] # sink id is the first letter in the string returned
     end
 
     def toggle
