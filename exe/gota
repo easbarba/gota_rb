@@ -10,7 +10,7 @@ require 'dry-container'
 class App
   extend GLI::App
 
-  program_desc 'Manage GOTA Projects repositories.'
+  program_desc 'Unix system utilities front-end'
 
   version Gota::VERSION
 
@@ -55,7 +55,14 @@ class App
   desc 'Symlink partition folders to $HOME'
   command :homey do |c|
     c.action do |_, _, args|
-      Gota::Homey.new(services, :grab).run
+      Gota::Homey.new(services, args.first).run
+    end
+  end
+
+  desc 'Take a screenshot of system'
+  command :screen do |c|
+    c.action do |_, _, args|
+      Gota::Screenshot.new(services, args.first).run
     end
   end
 

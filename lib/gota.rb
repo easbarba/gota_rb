@@ -6,6 +6,8 @@ require_relative 'gota/version'
 require_relative 'gota/brightness'
 require_relative 'gota/dots'
 require_relative 'gota/homey'
+
+# * Screenshot
 require_relative 'gota/screenshot'
 
 # * Volume
