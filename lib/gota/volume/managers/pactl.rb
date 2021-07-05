@@ -1,21 +1,29 @@
 module Gota
-  # s
+  # Control commands to the PulseAudio sound server.
   class Pactl
-    def pactl
-      {
-        name: 'pactl',
-        toggle: "set-sink-mute #{info.sink} toggle",
-        updown: "set-sink-volume #{info.sink} #{states[state]}#{STEP}%"
-      }
+    STEP = 3
+
+    attr_accessor :name, :state
+
+    def initialize(state)
+      @name = 'pactl'
+      @state = state
     end
 
-    def pactl_toggle
-      [pactl[:name], pactl[:toggle]].join(' ')
+    def sink
+      `pactl list sinks`.split('Sink #')[1][0]
     end
 
-    def pactl_updown
-      [pactl[:name], pactl[:updown]].join(' ')
+    def toggle
+      "set-sink-mute #{sink} toggle"
+    end
+
+    def updown
+      "set-sink-volume #{sink} #{state}#{STEP}%"
+    end
+
+    def to_s
+      "#{name} #{sink} #{state}"
     end
   end
 end
-

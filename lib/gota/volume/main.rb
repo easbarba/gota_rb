@@ -5,15 +5,16 @@
 # Manage System Volume.
 module Gota
   module Volume
-    class main
-      STEP = 3
-
-      attr_reader :state
+    # Volume Main caller
+    class Main
+      attr_reader :state, :manager
       attr_accessor :info
 
-      def initialize(state)
+      def initialize(services, state)
         @state = state.to_sym if state
-        @info = SoundManager.new.info
+
+        utils = services.resolve :utils
+        @manager = SoundManager.new(utils, states[@state]).info
       end
 
       def states
@@ -27,31 +28,23 @@ module Gota
       # * MODES
 
       def toggle
-        {
-          pactl: pactl_toggle,
-          amixer: amixer_toggle,
-          mixer: mixer_toggle
-        }
+        manager.toggle
       end
 
       def updown
-        {
-          pactl: pactl_updown,
-          amixer: amixer_updown,
-          mixer: mixer_updown
-        }
+        manager.updown
       end
 
       def mode
         {
-          toggle: toggle[info.name],
-          up: updown[info.name],
-          down: updown[info.name]
+          toggle: toggle,
+          up: updown,
+          down: updown
         }
       end
 
       def final_command
-        mode[state]
+        p "#{manager.name} #{mode[state]}"
       end
 
       def run
@@ -62,16 +55,3 @@ module Gota
     end
   end
 end
-
-# * SOUND MANAGERS
-
-def sound_managers
-  %w[pactl amixer mixer]
-end
-
-def sound_manager
-  sound_managers.first { |manager| utils.which?(manager) }.to_sym
-end
-
-# * ARGUMENTS
-# * RUN
