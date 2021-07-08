@@ -13,7 +13,7 @@ module Gota
     def sink
       `pactl list sinks`.split('Sink #').find do |sink|
         sink if sink.include? 'State: RUNNING'
-      end[0] # sink id is the first letter in the string returned
+      end.split('State').first.strip # sink id is the first letter in the string returned
     end
 
     def toggle
