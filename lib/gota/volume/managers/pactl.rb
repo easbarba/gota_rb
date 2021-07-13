@@ -11,7 +11,12 @@ module Gota
     end
 
     def sink
-      `pactl list sinks`.split('Sink #').find do |sink|
+      require 'English'
+
+      output = `set -eu; pactl list sinks`
+      raise('pipeline failed') unless $CHILD_STATUS.success?
+
+      output.split('Sink #').find do |sink|
         sink if sink.include? 'State: RUNNING'
       end.split('State').first.strip # sink id is the first letter in the string returned
     end
