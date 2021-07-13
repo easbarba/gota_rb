@@ -40,7 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'git', '~> 1.8', '>= 1.8.1'
   spec.add_runtime_dependency 'gli', '~> 2.20'
   spec.add_runtime_dependency 'tty-spinner', '~> 0.9.3'
-  spec.add_runtime_dependency 'yaml', '~> 0.1.1'
+  spec.add_runtime_dependency 'jaro_winkler', '1.5.4'
 
   # development
   spec.add_development_dependency 'bundler', '~> 2.2', '>= 2.2.17'
@@ -54,5 +54,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-rspec', '~> 2.3'
   spec.add_development_dependency 'rufo', '~> 0.12.0'
   spec.add_development_dependency 'yard', '~> 0.9.26'
-  spec.add_development_dependency 'solargraph', '~> 0.40.4'
+  spec.add_development_dependency 'solargraph', '~> 0.40.4'  
 end
