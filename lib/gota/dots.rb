@@ -8,9 +8,12 @@ require 'find'
 module Gota
   # Mirror Lar files in $HOME.
   class Dots
-    attr_reader :root, :ignore_these, :utils, :home, :target_link
-
     HOME = Pathname.new Dir.home
+
+    # ignore these ones
+    DOTIGNORED = ['LICENSE', root.join('.git').to_path.to_s, 'README.org'].freeze
+
+    attr_reader :root, :utils, :home, :target_link
 
     def initialize(services, root)
       @utils = services.resolve :utils
@@ -57,7 +60,7 @@ module Gota
 
     def feed_target_link
       root_files_folders[:files].each do |target|
-        next if ignored_ones.include? target.basename.to_s # TODO: .reject ignored_ones
+        next if DOTIGNORED.include? target.basename.to_s # TODO: .reject DOTIGNORED
 
         symlink_name = to_home target
         target_link.store(target, symlink_name)
@@ -83,11 +86,6 @@ module Gota
         puts "#{target} ❯ #{link_name}"
         link_name.make_symlink target # As enumerator yielding folder to symlink
       end
-    end
-
-    # ignore these ones
-    def ignored_ones
-      ['LICENSE', root.join('.git').to_path.to_s].freeze
     end
 
     def run
