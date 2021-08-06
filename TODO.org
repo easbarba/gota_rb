@@ -1,0 +1,6 @@
+#+TITLE: TODO
+
+* Dots
+- .dotsignore: ignore all files listed
+- Accept a git commit, symlink files in that commit.
+- keep track of symlinked files to easy undoing it all
