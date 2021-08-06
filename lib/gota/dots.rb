@@ -10,8 +10,7 @@ module Gota
   class Dots
     HOME = Pathname.new Dir.home
 
-    # ignore these ones
-    DOTIGNORED = ['LICENSE', root.join('.git').to_path.to_s, 'README.org'].freeze
+
 
     attr_reader :root, :utils, :home, :target_link
 
@@ -21,6 +20,11 @@ module Gota
       @root = Pathname.new root if root
       @target_link = {}
     end
+
+    # ignore these ones
+    def dotignored 
+	['LICENSE', root.join('.git').to_path.to_s, 'README.org'].freeze
+	end	
 
     def root_files_folders
       files = []
@@ -60,7 +64,7 @@ module Gota
 
     def feed_target_link
       root_files_folders[:files].each do |target|
-        next if DOTIGNORED.include? target.basename.to_s # TODO: .reject DOTIGNORED
+        next if dotignored.include? target.basename.to_s # TODO: .reject dotignored
 
         symlink_name = to_home target
         target_link.store(target, symlink_name)
