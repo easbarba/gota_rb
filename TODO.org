@@ -5,3 +5,4 @@
 - Accept a git commit, symlink files in that commit, cloned folder named to "dots-{COMMIT}".
 - symlinked files should be read-only.
 - keep track of symlinked files to easy undoing it all
+- dry-run or simulation in a tmp folder as demonstration
