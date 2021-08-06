@@ -21,10 +21,16 @@ module Gota
       @target_link = {}
     end
 
-    # ignore these ones
-    def dotignored 
-	['LICENSE', root.join('.git').to_path.to_s, 'README.org'].freeze
-	end	
+    # ignore these dotfiles
+    def dotignored
+      dots = root.join('.dotsignore').read.split "\n"
+      dots.append '.git' # ignore git folder!
+      dots.append '.dotsignore' # ignore it too, ofc!
+
+      dots.map do |x|
+        root.join(x)
+      end
+    end
 
     def root_files_folders
       files = []
