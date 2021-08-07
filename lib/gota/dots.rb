@@ -10,8 +10,6 @@ module Gota
   class Dots
     HOME = Pathname.new Dir.home
 
-
-
     attr_reader :root, :utils, :home, :target_link
 
     def initialize(services, root)
