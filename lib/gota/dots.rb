@@ -24,8 +24,9 @@ module Gota
     # ignore these dotfiles
     def dotignored
       dots = root.join('.dotsignore').read.split "\n"
-      dots.append '.git' # ignore git folder!
       dots.append '.dotsignore' # ignore it too, ofc!
+      dots.uniq # users may not notice.
+    end
 
       dots.map do |x|
         root.join(x)
