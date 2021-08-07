@@ -1,10 +1,14 @@
 #+TITLE: TODO
 
 * Dots
-- .dotsignore: ignore all files listed
-- Accept a git commit, symlink files in that commit, cloned folder named to "dots-{COMMIT}".
-- symlinked files should be read-only.
-- keep track of symlinked files to easy undoing it all
-- dry-run or simulation in a tmp folder as demonstration
-- clone dots repos at project config file by 'dotted'
-- user can gc early dotted repos to gain space, will purge all dots repos not in use
+** TODO Accept a git commit, symlink files in that commit
+Cloned folder named to "dots-{COMMIT}".
+
+** TODO symlinked files should be read-only.
+To ensure reproducibility
+** TODO keep track of symlinked files to easy undoing it all
+a single file is added to gota config that track every symlink added
+** TODO dry-run or simulation in a tmp folder as demonstration
+** TODO clone dots repos at project config file by 'dotted'
+** TODO user can gc early dotted repos to gain space, will purge all dots repos not in use
+** DONE .dotsignore: ignore all files listed
