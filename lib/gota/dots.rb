@@ -26,25 +26,34 @@ module Gota
       dots.uniq # users may not notice.
     end
 
-      dots.map do |x|
-        root.join(x)
+    def children?(current)
+      yep = false
+
+      dotignored.each do |ignored|
+        c = current.gsub "#{root.to_path}/", ''
+
+        yep = true if c.start_with? ignored
       end
+
+      yep
     end
 
-    def root_files_folders
+    def files_folders
       files = []
       folders = []
 
-      Find.find(root) do |file|
-        file = Pathname.new file
-        next if file.to_path.include? '.git'
-        next if file == root
+      Find.find(root) do |current|
+        next if current.include? '.git' # ignore the .git folder!
+        next if children? current
 
-        files << file if file.file?
-        folders << file if file.directory?
+        current = Pathname.new current
+        next if current == root # ????
+
+        files << current if current.file?
+        folders << current if current.directory?
       end
 
-      { folders: folders, files: files }
+      { folders: folders, files: files } # folders will not be a symlink
     end
 
     # transform origin file absolute path with home as its root instead
@@ -53,12 +62,13 @@ module Gota
       origin = this.to_path
       homey = HOME.to_path.concat('/')
       result = origin.gsub(root.to_path, homey)
+
       Pathname.new result
     end
 
     # Create only the folders, if those do not exist
     def make_folders
-      root_files_folders[:folders].each do |fld|
+      files_folders[:folders].each do |fld|
         folder = to_home fld
         next if folder.exist?
 
@@ -67,8 +77,12 @@ module Gota
       end
     end
 
+    def files_mirrored
+      raise 'not implemented'
+    end
+
     def feed_target_link
-      root_files_folders[:files].each do |target|
+      files_folders[:files].each do |target|
         next if dotignored.include? target.basename.to_s # TODO: .reject dotignored
 
         symlink_name = to_home target
