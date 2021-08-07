@@ -6,3 +6,5 @@
 - symlinked files should be read-only.
 - keep track of symlinked files to easy undoing it all
 - dry-run or simulation in a tmp folder as demonstration
+- clone dots repos at project config file by 'dotted'
+- user can gc early dotted repos to gain space, will purge all dots repos not in use
