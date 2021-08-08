@@ -9,6 +9,6 @@ To ensure reproducibility
 ** TODO keep track of symlinked files to easy undoing it all
 a single file is added to gota config that track every symlink added
 ** TODO dry-run or simulation in a tmp folder as demonstration
-** TODO clone dots repos at project config file by 'dotted'
+** TODO clone dots repos at $XDG_CACHE_HOME/gota/dots
 ** TODO user can gc early dotted repos to gain space, will purge all dots repos not in use
 ** DONE .dotsignore: ignore all files listed
