@@ -6,32 +6,32 @@ module Gota
   # Manage System brightness.
   class Brightness
     STEP = 5
-    BRIGHTER = 'brightnessctl'
 
-    attr_reader :state, :step
+    attr_reader :state
 
     def initialize(state)
-      @state = state
+      @state = state.to_sym
     end
 
-    def states
+    def brighter
+      'brightnessctl'
+    end
+
+    def actions
       {
         up: "set #{STEP}%+",
         down: "set #{STEP}%-"
       }
     end
 
-    def action
-      states[state.to_sym]
-    end
-
     def final_command
-      "#{BRIGHTER} #{action}"
+      "#{brighter} #{actions[state]}"
     end
 
     def run
-      @state = state.to_sym if %w[up down].include? state
-      system action
+      return if %w[up down].include? state
+
+      system final_command
     end
   end
 end
