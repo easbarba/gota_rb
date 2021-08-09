@@ -30,9 +30,7 @@ module Gota
       yep = false
 
       dotignored.each do |ignored|
-        c = current.gsub "#{root.to_path}/", ''
-
-        yep = true if c.start_with? ignored
+        yep = true if current.start_with? "#{root.to_path}#{ignored}"
       end
 
       yep
