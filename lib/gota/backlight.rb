@@ -1,10 +1,8 @@
-#!/usr/bin/env ruby
-
 # frozen_string_literal: true
 
 module Gota
-  # Manage System brightness.
-  class Brightness
+  # Manage System backlight.
+  class Backlight
     STEP = 5
 
     attr_reader :state

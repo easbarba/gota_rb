@@ -38,10 +38,10 @@ class App
     end
   end
 
-  desc 'Manage System brightness'
-  command :bright do |c|
+  desc 'Manage System Backlight'
+  command :back do |c|
     c.action do |_, _, args|
-      Gota::Brightness.new(args.first).run
+      Gota::Backlight.new(args.first).run
     end
   end
 

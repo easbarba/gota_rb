@@ -3,7 +3,7 @@
 require_relative 'gota/version'
 
 # * Main
-require_relative 'gota/brightness'
+require_relative 'gota/backlight'
 require_relative 'gota/dots'
 require_relative 'gota/homey'
 
