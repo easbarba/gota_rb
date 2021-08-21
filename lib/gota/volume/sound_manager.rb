@@ -1,4 +1,4 @@
-# lib/sound_manager.rb
+# frozen_string_literal: true
 
 # Sound manager information
 module Gota

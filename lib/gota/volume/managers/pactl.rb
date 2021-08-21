@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gota
   # Control commands to the PulseAudio sound server.
   class Pactl
