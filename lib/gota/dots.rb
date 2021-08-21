@@ -39,14 +39,13 @@ module Gota
       folders = []
 
       Find.find(root) do |current|
-        next if current.include? '.git' # ignore the .git folder!
-        next if children? current
-
         current = Pathname.new current
+
+        next if current.to_path.include? '.git' # ignore the .git folder!
+        next if children? current
         next if current == root # ????
 
-        files << current if current.file?
-        folders << current if current.directory?
+        current.file? ? files << current : folders << current
       end
 
       { folders: folders, files: files } # folders will not be a symlink
