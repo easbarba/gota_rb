@@ -25,13 +25,7 @@ module Gota
     end
 
     def children?(current)
-      yep = false
-
-      dotignored.each do |ignored|
-        yep = true if current.start_with? "#{root.to_path}#{ignored}"
-      end
-
-      yep
+      dotignored.map { |x| current.to_path.include? root.join(x).to_path }.any?
     end
 
     def files_folders
