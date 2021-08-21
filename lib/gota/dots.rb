@@ -28,7 +28,7 @@ module Gota
       dotignored.map { |x| current.to_path.include? root.join(x).to_path }.any?
     end
 
-    def files_folders
+    def all
       files = []
       folders = []
 
@@ -57,7 +57,7 @@ module Gota
 
     # Create only the folders, if those do not exist
     def make_folders
-      files_folders[:folders].each do |fld|
+      all[:folders].each do |fld|
         folder = to_home fld
         next if folder.exist?
 
@@ -71,7 +71,7 @@ module Gota
     end
 
     def feed_target_link
-      files_folders[:files].each do |target|
+      all[:files].each do |target|
         next if dotignored.include? target.basename.to_s # TODO: .reject dotignored
 
         symlink_name = to_home target
