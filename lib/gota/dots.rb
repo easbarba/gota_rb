@@ -72,8 +72,6 @@ module Gota
 
     def feed_target_link
       all[:files].each do |target|
-        next if dotignored.include? target.basename.to_s # TODO: .reject dotignored
-
         symlink_name = to_home target
         target_link.store(target, symlink_name)
       end
