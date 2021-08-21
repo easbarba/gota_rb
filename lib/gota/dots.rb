@@ -10,11 +10,9 @@ module Gota
   class Dots
     HOME = Pathname.new Dir.home
 
-    attr_reader :root, :utils, :home, :target_link
+    attr_reader :root, :home, :target_link
 
-    def initialize(services, root)
-      @utils = services.resolve :utils
-
+    def initialize(root)
       @root = Pathname.new root if root
       @target_link = {}
     end

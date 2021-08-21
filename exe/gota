@@ -48,7 +48,7 @@ class App
   desc 'Mirror Dotfiles root folder in $HOME'
   command :dots do |c|
     c.action do |_, _, args|
-      Gota::Dots.new(services, args.first).run
+      Gota::Dots.new(args.first).run
     end
   end
 
